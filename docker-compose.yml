@@ -1,0 +1,36 @@
+version: "3.1"
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: marvel-backend-mysql
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3306:3306"
+
+  webserver:
+    image: nginx:alpine
+    container_name: marvel-backend-webserver
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+
+  php-fpm:
+    build: ./
+    container_name: marvel-backend-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
