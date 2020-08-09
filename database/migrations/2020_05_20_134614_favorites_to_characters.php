@@ -6,14 +6,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FavoritesToCharacters extends Migration {
+class FavoritesToCharacters extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
     public
-    function up() {
+    function up()
+    {
         $oldData = Favorite::all();
         foreach ($oldData as $data) {
             $character = Character::firstOrCreate([
@@ -41,7 +43,8 @@ class FavoritesToCharacters extends Migration {
      * @return void
      */
     public
-    function down() {
+    function down()
+    {
         Schema::table('favorites', function (Blueprint $table) {
             $table->unsignedInteger('character_id');
             $table->string('image_url', 2048);
