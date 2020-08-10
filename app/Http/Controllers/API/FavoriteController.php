@@ -31,19 +31,12 @@ class FavoriteController extends Controller
         return new FavoriteResource(
             Favorite::create([
                 'user_id' => $request->user()->id,
-                'character_id' => $request->input('character_id'),
+                'marvel_character_id' => $request->input('character_id'),
                 'character_name' => $request->input('character_name'),
                 'image_url' => $request->input('image_url')
             ])
         );
     }
-
-    public function storeMulti(Request $request) {
-        Favorite::create([
-            'user_id' => $request->user()->id
-        ]);
-    }
-
 
     /**
      * Remove the specified resource from storage.
