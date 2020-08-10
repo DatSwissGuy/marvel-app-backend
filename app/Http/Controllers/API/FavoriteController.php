@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Favorite;
+use App\Character;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FavoriteResource;
 use App\Http\Resources\FavoriteCollection;
 use Illuminate\Http\Request;
 
-class FavoriteController extends Controller {
+class FavoriteController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -34,6 +36,12 @@ class FavoriteController extends Controller {
                 'image_url' => $request->input('image_url')
             ])
         );
+    }
+
+    public function storeMulti(Request $request) {
+        Favorite::create([
+            'user_id' => $request->user()->id
+        ]);
     }
 
 

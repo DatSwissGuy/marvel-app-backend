@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VisitorCounter extends Model {
+class VisitorCounter extends Model
+{
 
     protected bool $alreadyVisited = false;
 

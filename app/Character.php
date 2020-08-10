@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Character extends Model {
+class Character extends Model
+{
     /**
      * The attributes that are mass assignable.
      *
@@ -15,8 +16,4 @@ class Character extends Model {
         'character_name',
         'image_url'
     ];
-
-    public function favorites() {
-        $this->hasMany('App\Favorite');
-    }
 }

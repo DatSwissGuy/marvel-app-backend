@@ -6,7 +6,8 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated {
+class RedirectIfAuthenticated
+{
     /**
      * Handle an incoming request.
      *

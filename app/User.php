@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable {
+class User extends Authenticatable
+{
     use HasApiTokens, Notifiable;
 
     /**
@@ -54,7 +55,17 @@ class User extends Authenticatable {
         return Hash::check($password, $this->password);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function ratings() {
         return $this->hasMany('App\Rating');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favorites() {
+        return $this->hasMany('App\Favorite');
     }
 }

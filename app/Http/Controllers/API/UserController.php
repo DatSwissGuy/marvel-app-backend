@@ -8,7 +8,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
     /**
      * Display a listing of the resource.
      *

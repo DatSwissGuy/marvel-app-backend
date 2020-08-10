@@ -9,7 +9,8 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
-class Handler extends ExceptionHandler {
+class Handler extends ExceptionHandler
+{
     /**
      * A list of the exception types that are not reported.
      *

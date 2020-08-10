@@ -10,7 +10,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class RatingController extends Controller {
+class RatingController extends Controller
+{
     /**
      * Store a rating in storage.
      *
