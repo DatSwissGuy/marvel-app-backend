@@ -13,10 +13,10 @@ class CreateCharactersTable extends Migration {
     public function up() {
         Schema::create('characters', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('marvel_character_id');
+            $table->unsignedInteger('character_id');
             $table->string('character_name', 32);
             $table->string('image_url', 2048);
-            $table->unique(['marvel_character_id', 'character_name']);
+            $table->unique(['character_id', 'character_name']);
             $table->timestamps();
         });
     }

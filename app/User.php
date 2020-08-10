@@ -8,8 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, Notifiable;
 
     /**
@@ -51,13 +50,11 @@ class User extends Authenticatable
      * @param string $password
      * @return bool
      */
-    public function validateForPassportPasswordGrant(string $password): bool
-    {
+    public function validateForPassportPasswordGrant(string $password): bool {
         return Hash::check($password, $this->password);
     }
 
-    public function ratings()
-    {
+    public function ratings() {
         return $this->hasMany('App\Rating');
     }
 }

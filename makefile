@@ -1,6 +1,6 @@
 ################################## Container ##################################
 
-bash: # run bash shell in container
+shell: # run bash shell in container
 	docker-compose exec php-fpm bash
 
 build: # build images and run

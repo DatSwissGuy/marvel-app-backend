@@ -37,8 +37,7 @@ class Handler extends ExceptionHandler {
      *
      * @throws \Exception
      */
-    public function report(Exception $exception)
-    {
+    public function report(Exception $exception) {
         parent::report($exception);
     }
 
@@ -51,8 +50,7 @@ class Handler extends ExceptionHandler {
      *
      * @throws \Exception
      */
-    public function render($request, Exception $exception)
-    {
+    public function render($request, Exception $exception) {
         if ($exception instanceof NotFoundHttpException) {
             return response()->json(['message' => 'Resource Not Found.'], 404);
         }

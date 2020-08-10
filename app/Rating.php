@@ -21,8 +21,7 @@ class Rating extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function users()
-    {
+    public function users() {
         return $this->belongsTo('App\User');
     }
 }

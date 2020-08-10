@@ -14,15 +14,13 @@ class UserController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function currentUser(Request $request)
-    {
+    public function currentUser(Request $request) {
         $user = User::findOrFail($request->user())
             ->first();
         return new UserResource($user);
     }
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         $request->user()->token()->revoke();
         $request->user()->token()->delete();
         return response()->json([
