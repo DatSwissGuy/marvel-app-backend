@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.7.29)
+# Host: 127.0.0.1 (MySQL 5.7.31)
 # Database: marvel
-# Generation Time: 2020-04-17 10:16:02 +0000
+# Generation Time: 2020-08-15 18:19:27 +0000
 # ************************************************************
 
 
@@ -18,6 +18,24 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table characters
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `characters`;
+
+CREATE TABLE `characters` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `character_id` int(10) unsigned NOT NULL,
+  `character_name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_url` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `characters_character_id_character_name_unique` (`character_id`,`character_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 
 # Dump of table failed_jobs
@@ -45,25 +63,28 @@ DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
-  `character_id` int(10) unsigned NOT NULL,
-  `character_name` varchar(32) NOT NULL,
+  `marvel_character_id` int(10) unsigned NOT NULL,
+  `character_name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image_url` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `favorites_user_id_character_id_unique` (`user_id`,`character_id`),
+  UNIQUE KEY `favorites_user_id_character_id_unique` (`user_id`,`marvel_character_id`),
   CONSTRAINT `favorites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `favorites` WRITE;
 /*!40000 ALTER TABLE `favorites` DISABLE KEYS */;
 
-INSERT INTO `favorites` (`id`, `user_id`, `character_id`, `character_name`, `image_url`, `created_at`, `updated_at`)
+INSERT INTO `favorites` (`id`, `user_id`, `marvel_character_id`, `character_name`, `image_url`, `created_at`, `updated_at`)
 VALUES
-	(1,1,1011334,'3-D Man','http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg',NULL,NULL),
-	(2,1,1017100,'A-Bomb (HAS)','http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg',NULL,NULL),
 	(3,2,1017100,'A-Bomb (HAS)','http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg',NULL,NULL),
-	(4,2,1009144,'A.I.M.','http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg',NULL,NULL);
+	(4,2,1009144,'A.I.M.','http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg',NULL,NULL),
+	(9,1,1011334,'3-D Man','http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg','2020-08-15 18:10:31','2020-08-15 18:10:31'),
+	(11,1,1017100,'A-Bomb (HAS)','http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg','2020-08-15 18:12:43','2020-08-15 18:12:43'),
+	(12,2,1009146,'Abomination (Emil Blonsky)','http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg','2020-08-15 18:18:03','2020-08-15 18:18:03'),
+	(13,2,1009150,'Agent Zero','http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c0042121d790.jpg','2020-08-15 18:18:13','2020-08-15 18:18:13'),
+	(14,2,1011297,'Agent Brand','http://i.annihil.us/u/prod/marvel/i/mg/4/60/52695285d6e7e.jpg','2020-08-15 18:18:38','2020-08-15 18:18:38');
 
 /*!40000 ALTER TABLE `favorites` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -97,7 +118,9 @@ VALUES
 	(9,'2020_02_05_164527_create_ratings_table',3),
 	(10,'2020_02_25_155959_add_firstandlastname_to_users_table',4),
 	(11,'2020_03_04_141009_create_visitor_counters_table',5),
-	(13,'2020_04_17_073348_create_favorites_table',6);
+	(13,'2020_04_17_073348_create_favorites_table',6),
+	(14,'2020_05_19_093325_create_characters_table',7),
+	(15,'2020_08_10_140935_rename_column_in_favorites_table',7);
 
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -128,9 +151,13 @@ LOCK TABLES `oauth_access_tokens` WRITE;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`)
 VALUES
 	('1a289e883870149f2b4aac53aa38bc4b40461207b5ebce09cb49f429c119c51d947868701cc6cd5a',2,2,NULL,'[]',0,'2020-04-17 08:28:07','2020-04-17 08:28:07','2020-04-17 09:28:07'),
+	('376c2f512e6c153ccc2ff4a10dcbd85aca0ca7763f242001a1498fde020cd23f228ca6dfd30c1bbd',1,2,NULL,'[]',0,'2020-08-15 18:10:09','2020-08-15 18:10:09','2020-08-15 19:10:09'),
 	('41f875f206759d48a8f1b33c348a3bdb93463f9626f128b872768c79b146cd70f1b0583cb1aa81d4',2,2,NULL,'[]',0,'2020-04-17 09:10:33','2020-04-17 09:10:33','2020-04-17 10:10:33'),
 	('4c7d94e1f1300d6427c31b8e99e5cca4d20e0ef0d8a704ae32b6ee691ad88c282f8b295bd99bdde0',1,2,NULL,'[]',0,'2020-04-17 10:13:06','2020-04-17 10:13:06','2020-04-17 11:13:06'),
-	('b05b3f09aa3a80b220563c23ba8ef8270b8f09c5714816aaedf1962b83dc00b87d1c9646f472f50a',2,2,NULL,'[]',0,'2020-04-17 09:10:33','2020-04-17 09:10:33','2020-04-17 10:10:33');
+	('6ed913172be1e15348755efaeae3dd54b0ba631d3c8d5d00c3a03bd7f5a48cf478be3690c251943d',1,2,NULL,'[]',0,'2020-08-15 18:16:54','2020-08-15 18:16:54','2020-08-15 19:16:54'),
+	('8ca9e294a46a37aeaf887114a53360bbd5dd53c264d711f6d08d499790becffda0e23ba3c1198e04',1,2,NULL,'[]',0,'2020-08-15 18:08:26','2020-08-15 18:08:26','2020-08-15 19:08:26'),
+	('b05b3f09aa3a80b220563c23ba8ef8270b8f09c5714816aaedf1962b83dc00b87d1c9646f472f50a',2,2,NULL,'[]',0,'2020-04-17 09:10:33','2020-04-17 09:10:33','2020-04-17 10:10:33'),
+	('e0fb1106759bc295e7d28c6eefb6f2c62d82de52fe495604253ac424d7948c4145e9d680ecbf62fa',2,2,NULL,'[]',0,'2020-08-15 18:17:07','2020-08-15 18:17:07','2020-08-15 19:17:07');
 
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -229,10 +256,14 @@ LOCK TABLES `oauth_refresh_tokens` WRITE;
 
 INSERT INTO `oauth_refresh_tokens` (`id`, `access_token_id`, `revoked`, `expires_at`)
 VALUES
+	('2280882dea25ce45170cbe3f8ed963e9e3a950054b18c4fe52539f172ce0555818d72d318c6b74a8','376c2f512e6c153ccc2ff4a10dcbd85aca0ca7763f242001a1498fde020cd23f228ca6dfd30c1bbd',0,'2020-08-15 19:09:09'),
+	('310bd431d2c674fda6f061cdd7fb5c2ed87812fd5d8e92fc832892df38dda8bd3d83f0207a334b4a','6ed913172be1e15348755efaeae3dd54b0ba631d3c8d5d00c3a03bd7f5a48cf478be3690c251943d',0,'2020-08-15 19:15:54'),
 	('32abe5c8d91046bb73340094e998944d92f676aeabcccb58c4b9af2795d95c3bf4c4d17100d472d4','41f875f206759d48a8f1b33c348a3bdb93463f9626f128b872768c79b146cd70f1b0583cb1aa81d4',0,'2020-04-17 10:09:33'),
 	('6817ed0e25349dfe85837a1705c3f5b7d1708e14157360f8b8d5dc3353f9631bcc2e734469654a79','b05b3f09aa3a80b220563c23ba8ef8270b8f09c5714816aaedf1962b83dc00b87d1c9646f472f50a',0,'2020-04-17 10:09:33'),
 	('8f01f9122ae567f04dcfc85128df2eab36d4bb50fb3850c25d04947c348930cd15863babc0bae21a','4c7d94e1f1300d6427c31b8e99e5cca4d20e0ef0d8a704ae32b6ee691ad88c282f8b295bd99bdde0',0,'2020-04-17 11:12:06'),
-	('b9e6a4e5ecb61cb2f64976e8a6fc5f538eace675755ee8592404c85a783c9b8762fffb20921f50d7','1a289e883870149f2b4aac53aa38bc4b40461207b5ebce09cb49f429c119c51d947868701cc6cd5a',0,'2020-04-17 09:27:07');
+	('b9e6a4e5ecb61cb2f64976e8a6fc5f538eace675755ee8592404c85a783c9b8762fffb20921f50d7','1a289e883870149f2b4aac53aa38bc4b40461207b5ebce09cb49f429c119c51d947868701cc6cd5a',0,'2020-04-17 09:27:07'),
+	('bf4466122f10d9bee40c1d4b75b2e9bda0e335ecbf9e26f8933a41ce12fbc6b9dcbdedfbcab798a2','e0fb1106759bc295e7d28c6eefb6f2c62d82de52fe495604253ac424d7948c4145e9d680ecbf62fa',0,'2020-08-15 19:16:07'),
+	('d54ee65a2813468ecb7bfdb83badfa275da24f3cc0533151de77510069d660b4aa5b3c67071488f6','8ca9e294a46a37aeaf887114a53360bbd5dd53c264d711f6d08d499790becffda0e23ba3c1198e04',0,'2020-08-15 19:07:26');
 
 /*!40000 ALTER TABLE `oauth_refresh_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -281,7 +312,9 @@ VALUES
 	(6,1,1011334,2,'2020-03-09 12:32:00','2020-03-09 12:32:00'),
 	(7,1,1017100,4,'2020-03-09 12:32:08','2020-03-09 12:32:08'),
 	(8,1,1009144,3,'2020-03-09 12:32:16','2020-03-09 12:32:16'),
-	(9,1,1009146,4,'2020-03-09 12:32:31','2020-03-09 12:32:31');
+	(9,1,1009146,4,'2020-03-09 12:32:31','2020-03-09 12:32:31'),
+	(10,2,1009150,5,'2020-08-15 18:18:16','2020-08-15 18:18:16'),
+	(11,2,1011297,4,'2020-08-15 18:18:36','2020-08-15 18:18:36');
 
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -312,8 +345,8 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `firstname`, `lastname`)
 VALUES
-	(1,'admin','christian.marti@liip.ch','2020-02-03 12:19:00','$2y$12$rhNP8r8ZNBamexay.y6K1u0MVqRNChhBW2ZD6K3p3WqP7A2k/M/bm',NULL,'2020-02-03 12:19:00',NULL,'Christian','Marti'),
-	(2,'marvel','test@test.com','2020-02-03 12:19:00','$2y$12$v8ndNVaiwHg42kZZbTIYseBOmrZpoZBU60AZOV9dFnew/H2JHaQVm',NULL,'2020-02-03 12:19:00',NULL,'Captain','Marvel');
+	(1,'admin','admin@example.com','2020-02-03 12:19:00','$2y$12$rhNP8r8ZNBamexay.y6K1u0MVqRNChhBW2ZD6K3p3WqP7A2k/M/bm',NULL,'2020-02-03 12:19:00',NULL,'Captain','Admin'),
+	(2,'marvel','marvel@example.com','2020-02-03 12:19:00','$2y$12$v8ndNVaiwHg42kZZbTIYseBOmrZpoZBU60AZOV9dFnew/H2JHaQVm',NULL,'2020-02-03 12:19:00',NULL,'Marvel','Man');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -339,12 +372,14 @@ LOCK TABLES `visitor_counters` WRITE;
 
 INSERT INTO `visitor_counters` (`id`, `character_id`, `visits`, `created_at`, `updated_at`)
 VALUES
-	(1,1017100,4,'2020-03-09 08:26:31','2020-04-17 10:14:20'),
-	(2,1009144,4,'2020-03-09 08:26:45','2020-04-17 10:15:10'),
-	(3,1011334,4,'2020-03-09 08:26:55','2020-04-17 10:13:30'),
+	(1,1017100,6,'2020-03-09 08:26:31','2020-08-15 18:17:56'),
+	(2,1009144,5,'2020-03-09 08:26:45','2020-08-15 18:17:53'),
+	(3,1011334,6,'2020-03-09 08:26:55','2020-08-15 18:17:49'),
 	(4,1010699,2,'2020-03-09 12:15:34','2020-03-09 12:32:21'),
-	(5,1009146,1,'2020-03-09 12:31:11','2020-03-09 12:31:11'),
-	(6,1016823,1,'2020-03-09 12:31:22','2020-03-09 12:31:22');
+	(5,1009146,3,'2020-03-09 12:31:11','2020-08-15 18:18:01'),
+	(6,1016823,1,'2020-03-09 12:31:22','2020-03-09 12:31:22'),
+	(7,1009150,1,'2020-08-15 18:18:10','2020-08-15 18:18:10'),
+	(8,1011297,1,'2020-08-15 18:18:28','2020-08-15 18:18:28');
 
 /*!40000 ALTER TABLE `visitor_counters` ENABLE KEYS */;
 UNLOCK TABLES;
