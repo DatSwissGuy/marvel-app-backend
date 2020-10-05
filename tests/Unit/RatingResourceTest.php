@@ -7,16 +7,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Rating;
 
-class RatingResourceTest extends TestCase
-{
+class RatingResourceTest extends TestCase {
     use RefreshDatabase;
+
     /**
      * Test correct keys of ratings.
      *
      * @return void
      */
-    public function testRatingResource()
-    {
+    public function testRatingResource() {
         $rating = factory(Rating::class)->make();
 
         $ratingResource = new RatingResource($rating);

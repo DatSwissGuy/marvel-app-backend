@@ -4,17 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePasswordResetsTable extends Migration {
+class RenameColumnInFavoritesTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::table('favorites', function (Blueprint $table) {
+            $table->renameColumn('character_id', 'marvel_character_id');
         });
     }
 
@@ -24,6 +23,8 @@ class CreatePasswordResetsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('password_resets');
+        Schema::table('favorites', function (Blueprint $table) {
+            $table->renameColumn('marvel_character_id', 'character_id');
+        });
     }
 }

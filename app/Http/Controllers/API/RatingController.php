@@ -10,15 +10,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class RatingController extends Controller {
+class RatingController extends Controller
+{
     /**
      * Store a rating in storage.
      *
      * @param Request $request
      * @return RatingResource
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         return new RatingResource(
             Rating::create([
                 'user_id' => $request->user()->id,
@@ -34,8 +34,7 @@ class RatingController extends Controller {
      * @param int $character_id
      * @return AverageRatingResource
      */
-    public function showAverageCharacterRating($character_id)
-    {
+    public function showAverageCharacterRating($character_id) {
         $showAverageRatingByCharacterId = DB::table('ratings')
             ->where('character_id', $character_id)
             ->pluck('rating')
@@ -50,11 +49,10 @@ class RatingController extends Controller {
      * @param $character_id
      * @return RatingResource|JsonResponse
      */
-    public function showUserRatings(Request $request, $character_id)
-    {
+    public function showUserRatings(Request $request, $character_id) {
         $showUserRating = Rating::where('user_id', $request->user()->id)
-                ->where('character_id', $character_id)
-                ->first();
+            ->where('character_id', $character_id)
+            ->first();
         if ($showUserRating === null) {
             return response()->json([
                 'message' => 'No user rating found!'
@@ -71,8 +69,7 @@ class RatingController extends Controller {
      * @return RatingResource|JsonResponse
      *
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $updateRatingById = Rating::findOrFail($id);
         if ($updateRatingById->user_id === $request->user()->id) {
             $updateRatingById
@@ -90,8 +87,7 @@ class RatingController extends Controller {
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy(Request $request, $id)
-    {
+    public function destroy(Request $request, $id) {
         $deleteRatingById = Rating::find($id);
         if ($deleteRatingById->user_id === $request->user()->id) {
             $deleteRatingById->delete();

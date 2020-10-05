@@ -2,24 +2,22 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class FavoriteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request) {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname
+            'character_id' => $this->marvel_character_id,
+            'character_name' => $this->character_name,
+            'image_url' => $this->image_url,
         ];
     }
 }

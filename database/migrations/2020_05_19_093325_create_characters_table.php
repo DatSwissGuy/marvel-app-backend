@@ -4,20 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRatingsTable extends Migration {
+class CreateCharactersTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('ratings', function (Blueprint $table) {
+        Schema::create('characters', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedbigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('character_id');
-            $table->unsignedInteger('rating');
-            $table->unique(['user_id', 'character_id']);
+            $table->string('character_name', 32);
+            $table->string('image_url', 2048);
+            $table->unique(['character_id', 'character_name']);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateRatingsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('ratings');
+        Schema::dropIfExists('characters');
     }
 }

@@ -51,13 +51,21 @@ class User extends Authenticatable
      * @param string $password
      * @return bool
      */
-    public function validateForPassportPasswordGrant(string $password): bool
-    {
+    public function validateForPassportPasswordGrant(string $password): bool {
         return Hash::check($password, $this->password);
     }
 
-    public function ratings()
-    {
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ratings() {
         return $this->hasMany('App\Rating');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favorites() {
+        return $this->hasMany('App\Favorite');
     }
 }

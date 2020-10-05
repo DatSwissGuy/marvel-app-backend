@@ -4,17 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model
+class Favorite extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
-        'character_id',
-        'rating'
+        'marvel_character_id',
+        'character_name',
+        'image_url'
     ];
 
     /**
@@ -22,7 +18,7 @@ class Rating extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function users() {
+    public function characters() {
         return $this->belongsTo('App\User');
     }
 }

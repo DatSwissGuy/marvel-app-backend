@@ -24,6 +24,10 @@ Route::middleware('auth:api')->put('v1/ratings/{id}', 'API\RatingController@upda
 
 Route::get('v1/visits/character/{character_id}', 'API\VisitorCounterController@showCounterByCharacterId');
 
+Route::middleware('auth:api')->get('v1/favorites', 'API\FavoriteController@showUserFavorites');
+Route::middleware('auth:api')->post('v1/favorites', 'API\FavoriteController@store');
+Route::middleware('auth:api')->delete('v1/favorites/{id}', 'API\FavoriteController@destroy');
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'Resource Not Found.'

@@ -8,16 +8,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Http\Controllers\API\RatingController;
 
-class RatingControllerTest extends TestCase
-{
+class RatingControllerTest extends TestCase {
     use RefreshDatabase;
+
     /**
      * A basic unit test example.
      *
      * @return void
      */
-    public function testAverage()
-    {
+    public function testAverage() {
         $count = 100;
         $sum = 0;
 
@@ -36,6 +35,6 @@ class RatingControllerTest extends TestCase
 
         $averageRating = $ratingController->showAverageCharacterRating(1);
 
-        $this->assertEquals($sum/$count, $averageRating->average);
+        $this->assertEquals($sum / $count, $averageRating->average);
     }
 }

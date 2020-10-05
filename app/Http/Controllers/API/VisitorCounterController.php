@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\VisitorCounterResource;
 use App\VisitorCounter;
 
-class VisitorCounterController extends Controller {
+class VisitorCounterController extends Controller
+{
     /**
      * Display the visits by Character ID and creates one if none exist.
      *
