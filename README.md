@@ -1,6 +1,6 @@
 # MarvelApp (Backend Only)
 
-This is the backend / REST API for an educational Angular SPA consuming 2 RESTful APIs: The official Marvel API and a custom made API (Laravel). The Frontend repository can be found [here](https://github.com/DatSwissGuy/marvel-app-frontend). 
+This is the backend / REST API for an educational Angular SPA consuming 2 RESTful APIs: The official Marvel API and a custom made API (Laravel). The Frontend repository can be found [here](https://github.com/DatSwissGuy/marvel-app-frontend)
 
 This project was originally generated with Laravel 6.
 
