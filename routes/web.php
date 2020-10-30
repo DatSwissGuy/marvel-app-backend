@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json(
+        'This is a REST API. Nothing to see here.'
+    , 200);
 });
