@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return response()->json(
-        'This is a REST API. Nothing to see here.'
-    , 200);
+    return response()->json([
+        'message' => 'Welcome to the Marvel-App REST API.'
+    ], 200);
 });
