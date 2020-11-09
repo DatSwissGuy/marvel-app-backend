@@ -56,7 +56,7 @@ class RatingController extends Controller
         if ($showUserRating === null) {
             return response()->json([
                 'message' => 'No user rating found!'
-            ], 404);
+            ], 204);
         }
         return new RatingResource($showUserRating);
     }
