@@ -35,6 +35,6 @@ class AuthServiceProvider extends ServiceProvider
             }, ['prefix' => 'api/v1']
         );
         Passport::tokensExpireIn(now()->addMinutes(60));
-        Passport::refreshTokensExpireIn(now()->addMinutes(59));
+        Passport::refreshTokensExpireIn(now()->addMinutes(1440));
     }
 }

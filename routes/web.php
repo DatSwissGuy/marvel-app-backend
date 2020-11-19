@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json([
+        'message' => 'Welcome to the Marvel-App REST API.'
+    ], 200);
 });
